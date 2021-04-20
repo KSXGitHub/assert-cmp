@@ -1,0 +1,36 @@
+[package]
+name = "assert-cmp"
+description = "Convenient assertion macros that print the failed expressions and their evaluated values"
+version = "0.0.0"
+authors = ["khai96_ <hvksmr1996@gmail.com>"]
+edition = "2018"
+build = false
+readme = "README.md"
+license = "MIT"
+documentation = "https://docs.rs/assert-cmp"
+repository = "https://github.com/KSXGitHub/assert-cmp"
+categories = [
+  "no-std",
+  "rust-patterns",
+  "development-tools",
+]
+keywords = [
+  "stringify",
+  "debug",
+  "assert",
+  "macro",
+]
+include = [
+  "*.rs",
+  "/Cargo.toml",
+  "/README.md",
+  "/LICENSE.md",
+]
+
+[lib]
+name = "assert_cmp"
+path = "lib.rs"
+
+[[test]]
+name = "test"
+path = "test.rs"
