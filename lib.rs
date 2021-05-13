@@ -67,7 +67,7 @@ macro_rules! function_assertion_macro {
                     (left, right) => {
                         $assert!(
                             $function($left, $right),
-                            "{func}({left_expr}, {right_expr}) ⇒ {func}({left_value}, {right_value}) ⇒ false",
+                            "{func}({left_expr}, {right_expr}) ⇒ {func}({left_value:?}, {right_value:?}) ⇒ false",
                             func = stringify!($function),
                             left_expr = stringify!($left),
                             right_expr = stringify!($right),

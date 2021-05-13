@@ -83,9 +83,19 @@ fn assert_fn_fails_neg() {
 
 #[test]
 #[should_panic(expected = r#"abc == def ⇒ "abc" == "def" ⇒ false"#)]
-fn on_os_string() {
+fn op_on_os_string() {
     use ::std::{convert::From, ffi::OsString};
     let abc = OsString::from("abc");
     let def = OsString::from("def");
     ::assert_cmp::assert_op!(abc == def);
+}
+
+#[test]
+#[should_panic(expected = r#"eq(&abc, &def) ⇒ eq("abc", "def") ⇒ false"#)]
+fn fn_on_os_string() {
+    use ::std::{convert::From, ffi::OsString};
+    let abc = OsString::from("abc");
+    let def = OsString::from("def");
+    let eq = |a, b| a == b;
+    ::assert_cmp::assert_fn!(eq(&abc, &def));
 }
