@@ -77,6 +77,22 @@ macro_rules! function_assertion_macro {
                     }
                 }
             };
+
+            (not $function:ident($left:expr, $right:expr)) => {
+                match ($left, $right) {
+                    (left, right) => {
+                        $assert!(
+                            !$function($left, $right),
+                            "{func}({left_expr}, {right_expr}) ⇒ {func}({left_value}, {right_value}) ⇒ true",
+                            func = stringify!($function),
+                            left_expr = stringify!($left),
+                            right_expr = stringify!($right),
+                            left_value = left,
+                            right_value = right,
+                        )
+                    }
+                }
+            };
         }
     };
 }
@@ -159,8 +175,12 @@ function_assertion_macro! {
     #[doc = "```ignore"]
     #[doc = "assert_fn!($function($left, $right))"]
     #[doc = "```"]
+    #[doc = "```ignore"]
+    #[doc = "assert_fn!(not $function($left, $right))"]
+    #[doc = "```"]
     #[doc = "* `$function` is an identifier of a binary function."]
     #[doc = "* `$left` and `$right` are expressions."]
+    #[doc = "* `not`'s appearance means expecting the function call to returns `false` instead of `true`."]
     #[doc = ""]
     #[doc = "**Example:** An assertion that passes"]
     #[doc = "```"]
@@ -178,6 +198,24 @@ function_assertion_macro! {
     #[doc = "  false"]
     #[doc = "}"]
     #[doc = "assert_fn!(func(123, 456)); // panic: func(123, 456) ⇒ func(123, 456) ⇒ false"]
+    #[doc = "```"]
+    #[doc = ""]
+    #[doc = "**Example:** A negative assertion that passes"]
+    #[doc = "```"]
+    #[doc = "# use assert_cmp::assert_fn;"]
+    #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
+    #[doc = "  false"]
+    #[doc = "}"]
+    #[doc = "assert_fn!(not func(123, 456));"]
+    #[doc = "```"]
+    #[doc = ""]
+    #[doc = "**Example:** A negative assertion that fails"]
+    #[doc = "```"]
+    #[doc = "# use assert_cmp::assert_fn;"]
+    #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
+    #[doc = "  true"]
+    #[doc = "}"]
+    #[doc = "assert_fn!(not func(123, 456)); // panic: func(123, 456) ⇒ func(123, 456) ⇒ true"]
     #[doc = "```"]
     assert_fn;
 }

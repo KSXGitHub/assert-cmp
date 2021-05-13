@@ -69,6 +69,19 @@ fn assert_fn_fails() {
 }
 
 #[test]
+fn assert_fn_passes_neg() {
+    let eq = |a, b| a == b;
+    ::assert_cmp::assert_fn!(not eq(12 + 34, 43 + 21));
+}
+
+#[test]
+#[should_panic(expected = "eq(12 + 34, 12 + 34) ⇒ eq(46, 46) ⇒ true")]
+fn assert_fn_fails_neg() {
+    let eq = |a, b| a == b;
+    ::assert_cmp::assert_fn!(not eq(12 + 34, 12 + 34));
+}
+
+#[test]
 #[should_panic(expected = r#"abc == def ⇒ "abc" == "def" ⇒ false"#)]
 fn on_os_string() {
     use ::std::{convert::From, ffi::OsString};
