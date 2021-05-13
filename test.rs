@@ -67,3 +67,12 @@ fn assert_fn_fails() {
     let eq = |a, b| a == b;
     ::assert_cmp::assert_fn!(eq(12 + 34, 43 + 21));
 }
+
+#[test]
+#[should_panic(expected = r#"abc == def ⇒ "abc" == "def" ⇒ false"#)]
+fn on_os_string() {
+    use ::std::{convert::From, ffi::OsString};
+    let abc = OsString::from("abc");
+    let def = OsString::from("def");
+    ::assert_cmp::assert_op!(abc == def);
+}

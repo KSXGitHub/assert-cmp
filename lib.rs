@@ -20,7 +20,7 @@ macro_rules! operator_assertion_macros {
                     (left, right) => {
                         $assert!(
                             left $op right,
-                            "{left_expr} {op} {right_expr} ⇒ {left_value} {op} {right_value} ⇒ false",
+                            "{left_expr} {op} {right_expr} ⇒ {left_value:?} {op} {right_value:?} ⇒ false",
                             op = stringify!($op),
                             left_expr = stringify!($left),
                             right_expr = stringify!($right),
