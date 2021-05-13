@@ -210,7 +210,7 @@ function_assertion_macro! {
     #[doc = "```"]
     #[doc = ""]
     #[doc = "**Example:** A negative assertion that fails"]
-    #[doc = "```"]
+    #[doc = "```should_panic"]
     #[doc = "# use assert_cmp::assert_fn;"]
     #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
     #[doc = "  true"]
