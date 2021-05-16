@@ -102,48 +102,56 @@ operator_assertion_macros! {
     in ::assert_cmp;
     use ::core::assert;
 
-    #[doc = "Assert that a binary expression of 2 identifiers/literals returns `true`."]
-    #[doc = ""]
-    #[doc = "**Syntax:**"]
-    #[doc = "```ignore"]
-    #[doc = "assert_op!($left $op $right)"]
-    #[doc = "```"]
-    #[doc = "* `$left` and `$right` are either identifiers or literals or both."]
-    #[doc = "* `$op` is a binary operator (e.g. `>`, `<`, `>=`, `<=`, `==`, `!=`)."]
-    #[doc = ""]
-    #[doc = "**Example:** An assertion that passes"]
-    #[doc = "```"]
-    #[doc = "# use assert_cmp::assert_op;"]
-    #[doc = "assert_op!(123 < 456);"]
-    #[doc = "```"]
-    #[doc = ""]
-    #[doc = "**Example:** An assertion that fails"]
-    #[doc = "```should_panic"]
-    #[doc = "# use assert_cmp::assert_op;"]
-    #[doc = "assert_op!(123 > 456); // panic: 123 > 456 ⇒ 123 > 456 ⇒ false"]
-    #[doc = "```"]
+    /// Assert that a binary expression of 2 identifiers/literals returns `true`.
+    ///
+    /// **Syntax:**
+    ///
+    /// ```ignore
+    /// assert_op!($left $op $right)
+    /// ```
+    ///
+    /// * `$left` and `$right` are either identifiers or literals or both.
+    /// * `$op` is a binary operator (e.g. `>`, `<`, `>=`, `<=`, `==`, `!=`).
+    ///
+    /// **Example:** An assertion that passes
+    ///
+    /// ```
+    /// # use assert_cmp::assert_op;
+    /// assert_op!(123 < 456);
+    /// ```
+    ///
+    /// **Example:** An assertion that fails
+    ///
+    /// ```should_panic
+    /// # use assert_cmp::assert_op;
+    /// assert_op!(123 > 456); // panic: 123 > 456 ⇒ 123 > 456 ⇒ false
+    /// ```
     simple = assert_op;
 
-    #[doc = "Assert that a binary expression of 2 expressions returns `true`."]
-    #[doc = ""]
-    #[doc = "**Syntax:**"]
-    #[doc = "```ignore"]
-    #[doc = "assert_op_expr!($left, $op, $right)"]
-    #[doc = "```"]
-    #[doc = "* `$left` and `$right` are expressions."]
-    #[doc = "* `$op` is a binary operator (e.g. `>`, `<`, `>=`, `<=`, `==`, `!=`)."]
-    #[doc = ""]
-    #[doc = "**Example:** An assertion that passes"]
-    #[doc = "```"]
-    #[doc = "# use assert_cmp::assert_op_expr;"]
-    #[doc = "assert_op_expr!(12 + 34, ==, 34 + 12);"]
-    #[doc = "```"]
-    #[doc = ""]
-    #[doc = "**Example:** An assertion that fails"]
-    #[doc = "```should_panic"]
-    #[doc = "# use assert_cmp::assert_op_expr;"]
-    #[doc = "assert_op_expr!(12 + 34, ==, 43 + 21); // panic: 12 + 34 == 43 + 21 ⇒ 46 == 64 ⇒ false"]
-    #[doc = "```"]
+    /// Assert that a binary expression of 2 expressions returns `true`.
+    ///
+    /// **Syntax:**
+    ///
+    /// ```ignore
+    /// assert_op_expr!($left, $op, $right)
+    /// ```
+    ///
+    /// * `$left` and `$right` are expressions.
+    /// * `$op` is a binary operator (e.g. `>`, `<`, `>=`, `<=`, `==`, `!=`).
+    ///
+    /// **Example:** An assertion that passes
+    ///
+    /// ```
+    /// # use assert_cmp::assert_op_expr;
+    /// assert_op_expr!(12 + 34, ==, 34 + 12);
+    /// ```
+    ///
+    /// **Example:** An assertion that fails
+    ///
+    /// ```should_panic
+    /// # use assert_cmp::assert_op_expr;
+    /// assert_op_expr!(12 + 34, ==, 43 + 21); // panic: 12 + 34 == 43 + 21 ⇒ 46 == 64 ⇒ false
+    /// ```
     expr = assert_op_expr;
 }
 
@@ -152,16 +160,16 @@ operator_assertion_macros! {
     in ::assert_cmp;
     use ::core::debug_assert;
 
-    #[doc = "Assert that a binary expression of 2 identifiers/literals returns `true`."]
-    #[doc = ""]
-    #[doc = "This macro is the debug-only version of [`assert_op`]."]
-    #[doc = "It acts like `assert_op` in debug mode, but does nothing in release mode."]
+    /// Assert that a binary expression of 2 identifiers/literals returns `true`.
+    ///
+    /// This macro is the debug-only version of [`assert_op`].
+    /// It acts like `assert_op` in debug mode, but does nothing in release mode.
     simple = debug_assert_op;
 
-    #[doc = "Assert that a binary expression of 2 expressions returns `true`."]
-    #[doc = ""]
-    #[doc = "This macro is the debug-only version of [`assert_op`]."]
-    #[doc = "It acts like `assert_op_expr` in debug mode, but does nothing in release mode."]
+    /// Assert that a binary expression of 2 expressions returns `true`.
+    ///
+    /// This macro is the debug-only version of [`assert_op`].
+    /// It acts like `assert_op_expr` in debug mode, but does nothing in release mode.
     expr = debug_assert_op_expr;
 }
 
@@ -169,54 +177,61 @@ function_assertion_macro! {
     #![macro_export]
     use ::core::assert;
 
-    #[doc = "Assert that a binary function call of 2 expressions returns `true`."]
-    #[doc = ""]
-    #[doc = "**Syntax:**"]
-    #[doc = "```ignore"]
-    #[doc = "assert_fn!($function($left, $right))"]
-    #[doc = "```"]
-    #[doc = "```ignore"]
-    #[doc = "assert_fn!(not $function($left, $right))"]
-    #[doc = "```"]
-    #[doc = "* `$function` is an identifier of a binary function."]
-    #[doc = "* `$left` and `$right` are expressions."]
-    #[doc = "* `not`'s appearance means expecting the function call to returns `false` instead of `true`."]
-    #[doc = ""]
-    #[doc = "**Example:** An assertion that passes"]
-    #[doc = "```"]
-    #[doc = "# use assert_cmp::assert_fn;"]
-    #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
-    #[doc = "  true"]
-    #[doc = "}"]
-    #[doc = "assert_fn!(func(123, 456));"]
-    #[doc = "```"]
-    #[doc = ""]
-    #[doc = "**Example:** An assertion that fails"]
-    #[doc = "```should_panic"]
-    #[doc = "# use assert_cmp::assert_fn;"]
-    #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
-    #[doc = "  false"]
-    #[doc = "}"]
-    #[doc = "assert_fn!(func(123, 456)); // panic: func(123, 456) ⇒ func(123, 456) ⇒ false"]
-    #[doc = "```"]
-    #[doc = ""]
-    #[doc = "**Example:** A negative assertion that passes"]
-    #[doc = "```"]
-    #[doc = "# use assert_cmp::assert_fn;"]
-    #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
-    #[doc = "  false"]
-    #[doc = "}"]
-    #[doc = "assert_fn!(not func(123, 456));"]
-    #[doc = "```"]
-    #[doc = ""]
-    #[doc = "**Example:** A negative assertion that fails"]
-    #[doc = "```should_panic"]
-    #[doc = "# use assert_cmp::assert_fn;"]
-    #[doc = "fn func<A, B>(_: A, _: B) -> bool {"]
-    #[doc = "  true"]
-    #[doc = "}"]
-    #[doc = "assert_fn!(not func(123, 456)); // panic: func(123, 456) ⇒ func(123, 456) ⇒ true"]
-    #[doc = "```"]
+    /// Assert that a binary function call of 2 expressions returns `true`.
+    ///
+    /// **Syntax:**
+    ///
+    /// ```ignore
+    /// assert_fn!($function($left, $right))
+    /// ```
+    ///
+    /// ```ignore
+    /// assert_fn!(not $function($left, $right))
+    /// ```
+    ///
+    /// * `$function` is an identifier of a binary function.
+    /// * `$left` and `$right` are expressions.
+    /// * `not`'s appearance means expecting the function call to returns `false` instead of `true`.
+    ///
+    /// **Example:** An assertion that passes
+    ///
+    /// ```
+    /// # use assert_cmp::assert_fn;
+    /// fn func<A, B>(_: A, _: B) -> bool {
+    ///   true
+    /// }
+    /// assert_fn!(func(123, 456));
+    /// ```
+    ///
+    /// **Example:** An assertion that fails
+    ///
+    /// ```should_panic
+    /// # use assert_cmp::assert_fn;
+    /// fn func<A, B>(_: A, _: B) -> bool {
+    ///   false
+    /// }
+    /// assert_fn!(func(123, 456)); // panic: func(123, 456) ⇒ func(123, 456) ⇒ false
+    /// ```
+    ///
+    /// **Example:** A negative assertion that passes
+    ///
+    /// ```
+    /// # use assert_cmp::assert_fn;
+    /// fn func<A, B>(_: A, _: B) -> bool {
+    ///   false
+    /// }
+    /// assert_fn!(not func(123, 456));
+    /// ```
+    ///
+    /// **Example:** A negative assertion that fails
+    ///
+    /// ```should_panic
+    /// # use assert_cmp::assert_fn;
+    /// fn func<A, B>(_: A, _: B) -> bool {
+    ///   true
+    /// }
+    /// assert_fn!(not func(123, 456)); // panic: func(123, 456) ⇒ func(123, 456) ⇒ true
+    /// ```
     assert_fn;
 }
 
@@ -224,9 +239,9 @@ function_assertion_macro! {
     #![macro_export]
     use ::core::debug_assert;
 
-    #[doc = "Assert that a binary function call of 2 expressions returns `true`."]
-    #[doc = ""]
-    #[doc = "This macro is the debug-only version of [`assert_fn`]."]
-    #[doc = "It acts like `assert_op_expr` in debug mode, but does nothing in release mode."]
+    /// Assert that a binary function call of 2 expressions returns `true`.
+    ///
+    /// This macro is the debug-only version of [`assert_fn`].
+    /// It acts like `assert_op_expr` in debug mode, but does nothing in release mode.
     debug_assert_fn;
 }
