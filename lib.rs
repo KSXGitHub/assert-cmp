@@ -7,7 +7,7 @@
 macro_rules! operator_assertion_macros {
     (
         $(#![$shared_attr:meta])*
-        in $module:path;
+        in $(::$module:ident)+;
         use $assert:path;
         $(#[$attr_simple:meta])* simple = $name_simple:ident;
         $(#[$attr_expr:meta])* expr = $name_expr:ident;
@@ -36,16 +36,16 @@ macro_rules! operator_assertion_macros {
         $(#[$attr_simple])*
         macro_rules! $name_simple {
             ($left:ident $op:tt $right:ident) => {
-                $module::$name_expr!($left, $op, $right)
+                $(::$module)+::$name_expr!($left, $op, $right)
             };
             ($left:ident $op:tt $right:literal) => {
-                $module::$name_expr!($left, $op, $right)
+                $(::$module)+::$name_expr!($left, $op, $right)
             };
             ($left:literal $op:tt $right:ident) => {
-                $module::$name_expr!($left, $op, $right)
+                $(::$module)+::$name_expr!($left, $op, $right)
             };
             ($left:literal $op:tt $right:literal) => {
-                $module::$name_expr!($left, $op, $right)
+                $(::$module)+::$name_expr!($left, $op, $right)
             };
         }
     };
